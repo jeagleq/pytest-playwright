@@ -58,6 +58,7 @@ The project leverages the following technologies:
    ```bash
    poetry install
    ```
+4. Register new user on demoblaze and input the username and password to the config.conf file
 
 ---
 
@@ -91,22 +92,3 @@ The project leverages the following technologies:
 
 **HTML Report:**
 Open the test_report.html file located in the reports folder in any browser.
-
-## 📂 Project Structure
-
-📁 root
-├── 📂 pages # Page classes and methods (Page Object Model)
-├── 📂 tests # Test cases (UI and API)  
-│ └── 📂 api # API tests
-│ └── 📂 ui # UI tests
-├── 📂 reports # Generated test reports (HTML)
-├── 📂 allure-reports # Generated test reports (Allure)
-├── 📂 screenshots # Screenshots of failed tests
-├── 📂 configurations # Configuration files
-│ └── 📜 config.conf # Base URLs and credentials
-├── 📂 utilities # Utility scripts
-│ └── 📜 readConfig.py # Reads configuration parameters
-└── 📜 cookie.py # Store cookie
-├── 📂 logs # Custom logging utility
-│ └── 📜 customLogger.py # Logging utility for test execution
-├── 📜 pytest.ini # Pytest configuration (default args, markers, etc.)
