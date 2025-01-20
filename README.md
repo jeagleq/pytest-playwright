@@ -1,4 +1,4 @@
-# 🎯 Pytest-Playwright Testing Project (UI + API)
+# 🎯 Pytest-Playwright Testing Project (UI + API) with HTML and Allure reports
 
 This project is a comprehensive **Pytest-Playwright Testing** solution, combining UI and API testing capabilities. The project features a login functionality, state preservation, and integration with multiple reporting tools.
 
