@@ -3,10 +3,16 @@ from utilities.readConfig import ReadConfig
 from logs.customLogger import CustomLogger
 import pytest # type: ignore
 import allure # type: ignore
+from playwright.sync_api import Page , Route # type: ignore
 from utilities.readConfig import ReadConfig
+import re;
 
 logger = CustomLogger().get_logger("test_logger")
 
+user = {
+    "username": ReadConfig.getUsername(),
+    "password": ReadConfig.getPassword()
+}
 
 @pytest.mark.ui
 @allure.feature("Login")
@@ -41,5 +47,46 @@ def test_login_with_saved_state(page_from_state, record_property):
         assert False
     page.close()
 
-
+@pytest.mark.negative
+@allure.feature("Login")
+@allure.story("Unsuccessful login using wring username")
+def test_wrong_username_from_backend(page: Page):
+    login_page= LoginPage(page)
+    login_page.goto()
+    #print(page.context.cookies())
     
+    def change_request(route: Route):
+        data = route.request.post_data
+        if data:
+            data = data.replace(user["username"], "wrongname")
+        route.continue_(post_data=data)
+    
+    def handle_dialog(dialog):
+        assert dialog.type == "alert"
+        assert dialog.message == "User does not exist."
+        dialog.accept()
+    
+    # Subscribe on dialog events
+    page.on("dialog", handle_dialog)
+    page.route(re.compile('/login'), change_request)
+    login_page.login(user["username"], user["password"])
+    login_page.wait_for_user()
+
+@pytest.mark.negative
+@allure.feature("Login")
+@allure.story("Change username on UI")
+def test_change_username_on_ui(page: Page):
+    login_page= LoginPage(page)
+    login_page.goto()
+
+    name = 'Кеша'
+    def change_request(route: Route):
+        response = route.fetch()
+        data= response.text()
+        data = data.replace('jimmy_neutron',name)
+        route.fulfill(response=response, body = data)
+
+    page.route(re.compile('/check'), change_request)
+    login_page.login(user["username"], user["password"])
+    login_page.wait_for_user()
+    assert page.locator("#nameofuser").text_content()==f'Welcome {name}'

@@ -1,5 +1,5 @@
 [common fields] 
-baseURL = 
-baseAPIURL = 
+baseURL = https://demoblaze.com/
+baseAPIURL = https://api.demoblaze.com/
 username = 
 password =

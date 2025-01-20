@@ -1,8 +1,9 @@
 # pageObjects/loginPage.py
 from playwright.sync_api import Page # type: ignore
+from utilities.readConfig import ReadConfig
 
 class LoginPage:
-    url = "https://demoblaze.com/"
+    url = f"{ReadConfig.getApplicationURL()}"
     # Locators 
     textbox_username_id = '#loginusername'
     textbox_password_id = '#loginpassword'
