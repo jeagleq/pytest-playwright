@@ -1,0 +1,13 @@
+**/__pycache__/
+**/.pytest_cache/
+allure-results
+state.json
+logs/* 
+!logs/customLogger.py
+reports/
+screenshots
+*.py[cod]
+configurations/*
+!configurations/config.conf.example
+.DS_Store
+*.log
