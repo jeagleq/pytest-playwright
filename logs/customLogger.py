@@ -4,7 +4,7 @@ import datetime
 class CustomLogger:
     now = datetime.datetime.now()
     current_date = now.strftime("%Y_%m_%d_T%H:%M:%S")
-    log_file = f"./Logs/automation_{current_date}.log"
+    log_file = f"./logs/automation_{current_date}.log"
 
     def get_logger(self, logger_name: str, log_level=logging.DEBUG):
         logger = logging.getLogger(logger_name)
